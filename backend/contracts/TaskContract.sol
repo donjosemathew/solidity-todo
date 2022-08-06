@@ -27,5 +27,16 @@ contract TaskContract {
         counter++;//37 minutes
       }
     }
+    Task[] memory result=new Task[](counter);
+    for(uint i=0;i<counter;i++){
+      result[i]=temporary[i];
+    }
+    return result;
+  }
+  function deleteTask(uint taskId,bool isDeleted) external{
+    if(taskToOwner[taskId]==msg.sender){
+      tasks[taskId].isDeleted=isDeleted;
+      emit DeleteTask(taskId, isDeleted);
+    }
   }
 }
